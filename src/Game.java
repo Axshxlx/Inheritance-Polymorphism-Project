@@ -21,7 +21,8 @@ public class Game extends PApplet {
         test.draw(returnGame());
     }
 
-
+  public ArrayList<Card> returnp1List() { return p1List;}
+    public ArrayList<Card> returnp2List() { return p2List;}
 
     public Game returnGame() { return this;}
     public static void main(String[] args) {

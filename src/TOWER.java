@@ -25,11 +25,12 @@ public class TOWER {
     public Card findClosestEnemy(Game g) {
 
         if (Player = true){
-            for (int i = 0; i<=g.p1List.length; i++){
-                Card enemy = g.p1List[i];
+            for (int i = 0; i<=g.p1List.size; i++){
+                Card enemy = g.returnp1List().get(i);
                 FindDistance(enemy);
             }
         }
+        return enemy;
     }
 
     public int FindDistance(Card c){
