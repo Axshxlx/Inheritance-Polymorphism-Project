@@ -27,9 +27,15 @@ public class TOWER {
         if (Player = true){
             for (int i = 0; i<=g.p1List.size; i++){
                 Card enemy = g.returnp1List().get(i);
-                FindDistance(enemy);
+                int distance = FindDistance(enemy);
+                if(distance<=closestdistance){
+                    closestdistance = distance;
+                    closest = enemy
+                }
             }
+
         }
+
         return enemy;
     }
 
