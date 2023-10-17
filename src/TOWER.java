@@ -23,20 +23,21 @@ public class TOWER {
 
 
     public Card findClosestEnemy(Game g) {
-
-        if (Player = true){
-            for (int i = 0; i<=g.p1List.size; i++){
+        Card closest = null;
+        int closestdistance = 50;
+        if (Player){
+            for (int i = 0; i<=g.p1List.size(); i++){
                 Card enemy = g.returnp1List().get(i);
                 int distance = FindDistance(enemy);
                 if(distance<=closestdistance){
                     closestdistance = distance;
-                    closest = enemy
+                    closest = enemy;
                 }
             }
 
         }
 
-        return enemy;
+        return closest;
     }
 
     public int FindDistance(Card c){
