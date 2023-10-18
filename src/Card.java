@@ -11,10 +11,8 @@ public class Card {
     protected int atkRadius;
     protected boolean giant;
     protected boolean alive;
-    protected int xLocation;
-    protected int yLocation;
-
-
+    public int xLocation;
+    public int yLocation;
     public Card(int elixirPrice, int strength, int speed, int atkRadius, boolean giant, boolean alive, int xLocation, int yLocation) {
         this.elixirPrice = elixirPrice;
         this.strength = strength;
@@ -25,8 +23,6 @@ public class Card {
         this.xLocation = xLocation;
         this.yLocation = yLocation;
     }
-
-
     public int getyLocation() {
         return yLocation;
     }

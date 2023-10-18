@@ -4,23 +4,21 @@ public class Goblin extends Card{
     private static int health = 75;
     private static boolean giant = false;
     private static int atkRadius = 4;
-    private static int speed=3;
+    private static int speed;
     private int xLocation, yLocation;
     private boolean alive;
 
     public Goblin(boolean alive, int xLocation, int yLocation){
         super(elixirPrice,strength,speed, atkRadius, giant, alive,xLocation, yLocation);
-        if(getyLocation() > 400) speed=-3;
-
-    }
-
-    public void draw(Game game){
-        game.ellipse(getxLocation(),getyLocation(),25,25);
-        updateLocation();
+        if(getyLocation() > 400) speed=-20;
+        else speed=20;
     }
     public void updateLocation() {
         yLocation+=speed;
-        xLocation+=speed;
+    }
+    public void draw(Game game, Goblin test){
+        game.ellipse(test.getxLocation(),test.getyLocation(),25,25);
+//        game.p1List.add(this);
     }
 
 

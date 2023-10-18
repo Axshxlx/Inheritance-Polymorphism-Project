@@ -5,26 +5,20 @@ import java.util.ArrayList;
 public class Game extends PApplet {
     ArrayList<Card> p1List = new ArrayList<>();
     ArrayList<Card> p2List = new ArrayList<>();
-    Goblin test = new Goblin(true, (int)(Math.random()*400+200),(int)(Math.random()*400+200));
-
+    Goblin test;
     public void settings() {
         size(800, 1000);
     }
-
     public void setup() {
+        test = new Goblin(true, (int)(Math.random()*400+200),(int)(Math.random()*400+200));
     }
 
     public void draw() {
-
-        background(255);    // paint screen white
+        background(255);
         fill(0,255,0);
-        test.draw(returnGame());
+        test.draw(this, test);
+        test.updateLocation();
     }
-
-  public ArrayList<Card> returnp1List() { return p1List;}
-    public ArrayList<Card> returnp2List() { return p2List;}
-
-    public Game returnGame() { return this;}
     public static void main(String[] args) {
         PApplet.main("Game");
     }
