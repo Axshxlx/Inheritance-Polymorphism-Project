@@ -6,6 +6,13 @@ public class TOWER {
     protected boolean alive;
     protected int type;
     protected boolean Player;
+
+    protected int attackRadius;
+
+    protected boolean attacking;
+
+    protected Card name;
+
     public TOWER(int type,int x_location, int y_location, boolean Player){
         this.type = type;
         if (type == 0) {
@@ -36,8 +43,23 @@ public class TOWER {
             }
 
         }
+        else{
+            for (int i = 0; i<=g.p2List.size(); i++){
+                Card enemy = g.p2List.get(i);
+                int distance = FindDistance(enemy);
+                if(distance<=closestdistance){
+                    closestdistance = distance;
+                    closest = enemy;
+                }
+            }
 
-        return closest;
+        }
+        if(closestdistance<=attackRadius) {
+            return closest;
+        }
+        else{
+            return null;
+        }
     }
 
     public int FindDistance(Card c){
@@ -50,6 +72,23 @@ public class TOWER {
 
     }
 
+
+    public void Attack(Game g){
+        if(attacking = false){
+            Card closest = findClosestEnemy(g);
+            damage(closest);
+        }
+        else{
+            damage(name);
+        }
+    }
+    public void damage(Card enemy){
+        if(enemy!=null) {
+            enemy.health -= 100;
+            attacking = true;
+            name = enemy;
+        }
+    }
 
 }
 
