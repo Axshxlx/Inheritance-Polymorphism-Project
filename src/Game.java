@@ -16,7 +16,7 @@ public class Game extends PApplet {
     public void draw() {
         background(255);
         fill(0,255,0);
-        test.draw(this, test);
+        test.draw(this);
         test.updateLocation();
     }
     public static void main(String[] args) {
