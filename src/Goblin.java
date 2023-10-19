@@ -7,7 +7,7 @@ public class Goblin extends Card{
     private static int speed;
     private boolean alive;
 
-    public Goblin(boolean alive, int xLocation, int yLocation){
+    public Goblin(boolean alive, int xLocation,     int yLocation){
         super(elixirPrice,strength,speed, atkRadius, giant, alive,xLocation, yLocation);
         if(getyLocation() > 400) speed=-3;
         else speed=3;
