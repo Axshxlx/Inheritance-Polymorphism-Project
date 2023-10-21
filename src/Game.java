@@ -6,19 +6,29 @@ public class Game extends PApplet {
     ArrayList<Card> p1List = new ArrayList<>();
     ArrayList<Card> p2List = new ArrayList<>();
     Goblin test;
+
     public void settings() {
         size(800, 1000);
     }
     public void setup() {
-        test = new Goblin(true, (int)(Math.random()*400+200),(int)(Math.random()*400+200));
+        test = new Goblin(true, true,(int)(Math.random()*12 + 800), (int)(Math.random()*550+300), 75);
     }
 
     public void draw() {
         background(255);
-        fill(0,255,0);
+        fill(0,0,180);
+        rect(0,450,800, 100); //river
+        fill(0,180,0);
+        rect(0,0,800, 450);
+        rect(0,550,800, 450);
+        fill(101,67,32);
+        rect(350,400, 100,200); // bridge
         test.draw(this);
-        test.updateLocation();
     }
+
+
+
+
     public static void main(String[] args) {
         PApplet.main("Game");
     }
