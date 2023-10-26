@@ -42,49 +42,7 @@ public class Goblin extends Card {
         updateLocation(game);
     }
 
-    private int[] destination(Game game) {
-        //p1 = bottom |  RIVER ==> rect(0,450,800, 100); | Field ==> 800 by 1000 top left: 0,0
-        // Bridge ==> rect(350,400, 100,200);
-        if (p1) {
-            if (yLocation > 600) {
-                int[] destination = {400, 600};
-                return destination;
-            } else if (yLocation <= 600 && yLocation <= 400) {
-                int[] destination = {400, 400};
-                return destination;
-            } else {
-                int[] destination = {1, 1};
-                return destination;
-            }
-        } else {
-            int[] destination = {400, 400};
-            return destination;
-        }
-    }
 
-    public Card findClosestEnemy(Game g) {
-        Card closest = null;
-        int closestdistance = 1000;
-            for (int i = 0; i <= g.cards.size(); i++) {
-                Card enemy = g.cards.get(i);
-                    if (enemy instanceof Card) {
-                    int distance = FindDistance(enemy);
-                    if (distance <= atkRadius) {
-                        if (distance <= closestdistance) {
-                            closestdistance = distance;
-                            closest = enemy;
-                        }
-                    }
-                } else {
-                    int distance = FindDistance(enemy);
-                    if (distance <= closestdistance) {
-                        closestdistance = distance;
-                        closest = enemy;
-                    }
-                }
 
-            }
-        return closest;
-    }
 
 }

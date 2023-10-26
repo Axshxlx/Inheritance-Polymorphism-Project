@@ -43,6 +43,14 @@ public class Card {
         return (int)distance;
     }
 
+    public int FindDistance(TOWER t) {
+        int enemyY = t.getyLocation();
+        int enemyX = t.getxLocation();
+        int differenceSquaredX = (enemyX - this.xLocation) * (enemyX - this.xLocation);
+        int differenceSquaredY = (enemyY - this.yLocation) * (enemyY - this.yLocation);
+        double distance = Math.sqrt((double)(differenceSquaredX + differenceSquaredY));
+        return (int)distance;
+    }
     public int getHealth() {
         return health;
     }
@@ -58,4 +66,41 @@ public class Card {
         game.cards.remove(this);
     }
 
+
+    public Card findClosestEnemy(Game g) {
+        Card closest = null;
+        int closestdistance = FindDistance(findClosestTower(g));
+        for (int i = 0; i <= g.cards.size(); i++) {
+            Card enemy = g.cards.get(i);
+            if (enemy instanceof Card) {
+                int distance = FindDistance(enemy);
+                if (distance <= atkRadius) {
+                    if (distance <= closestdistance) {
+                        closestdistance = distance;
+                        closest = enemy;
+                    }
+                }
+
+            }
+
+        }
+        return closest;
+    }
+
+
+    public TOWER findClosestTower(Game g){
+        TOWER closest = null;
+        int closestdistance = 10000;
+        for (int i = 0; i <= g.towers.size(); i++) {
+            TOWER enemy = g.towers.get(i);
+            int distance = FindDistance(enemy);
+            if (distance <= closestdistance) {
+                    closestdistance = distance;
+                    closest = enemy;
+
+            }
+
+        }
+        return closest;
+    }
 }

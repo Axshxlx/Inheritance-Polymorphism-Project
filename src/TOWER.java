@@ -89,5 +89,11 @@ public class TOWER {
         game.rect(x_location,y_location,200,200);
     }
 
+    public int getyLocation() {
+        return y_location;
+    }
+    public int getxLocation(){
+        return x_location;
+    }
 }
 
