@@ -14,17 +14,23 @@ public class Goblin extends Card {
 
     public Goblin(boolean alive, boolean p1, int xLocation, int yLocation, int health) {
         super(elixirPrice, strength, health, speedX, speedY, atkRadius, giant, alive, p1, xLocation, yLocation);
+        int distFromBridgeX = getxLocation() - 400;
+        int distFromBridgeY = getyLocation() - 500;
+        if(distFromBridgeY < 0 ) speedY=1;
+        if(distFromBridgeX < 0 ) speedX=1;
+        if(distFromBridgeX > 0 ) speedX=-1;
+        if(distFromBridgeY > 0 ) speedY=-1;
         initialX = getxLocation();
         initialY = getyLocation();
     }
 
-    public void updateLocation() {
+    public void updateLocation(Game game) {
         if (getxLocation() == 400) speedX = 0;
-        if (getyLocation() == 600) speedY = 0;
         xLocation += speedX;
         yLocation += speedY;
-        if (getxLocation() == 400 && p1) speedX = 0;
-        if (getyLocation() == 600 && p1) speedY = 0;
+        if(getyLocation()==600) {
+            findClosestEnemy(game);
+        }
     }
 
 
@@ -33,11 +39,8 @@ public class Goblin extends Card {
         game.ellipse(getxLocation(), getyLocation(), 25, 25);
         if (p1) game.p1List.add(this);
         else game.p2List.add(this);
-        updateLocation();
-
+        updateLocation(game);
     }
-
-
 
     private int[] destination(Game game) {
         //p1 = bottom |  RIVER ==> rect(0,450,800, 100); | Field ==> 800 by 1000 top left: 0,0
@@ -58,12 +61,6 @@ public class Goblin extends Card {
             return destination;
         }
     }
-
-
-    private boolean onBridge() {
-        return (350 < getxLocation() && getxLocation() < 450 && 400 < getyLocation() && getyLocation() < 600);
-    }
-
 
     public Card findClosestEnemy(Game g) {
         Card closest = null;

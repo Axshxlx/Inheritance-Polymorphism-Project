@@ -11,7 +11,7 @@ public class Game extends PApplet {
         size(800, 1000);
     }
     public void setup() {
-        test = new Goblin(true, true,(int)(Math.random()*12 + 800), (int)(Math.random()*550+300), 75);
+        test = new Goblin(true, true,200, 200, 75);
     }
 
     public void draw() {

@@ -19,16 +19,6 @@ public class Card {
         this.elixirPrice = elixirPrice;
         this.strength = strength;
         this.p1=p1;
-        if(p1){
-        int distFromBridgeX = getxLocation() - 400;
-        int distFromBridgeY = getyLocation() - 500;
-        if(distFromBridgeY < 0 ) speedY=1;
-        if(distFromBridgeX < 0 ) speedX=1;
-        if(distFromBridgeX > 0 ) speedX=-1;
-        if(distFromBridgeY > 0 ) speedY=-1;
-        }else{
-            //do something
-        }
         this.speedX = speedX;
         this.speedY = speedY;
         this.atkRadius = atkRadius;
