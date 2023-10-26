@@ -34,11 +34,11 @@ public class Goblin extends Card {
     }
 
 
+
     public void draw(Game game) {
         game.fill(0, 120, 0);
         game.ellipse(getxLocation(), getyLocation(), 25, 25);
-        if (p1) game.p1List.add(this);
-        else game.p2List.add(this);
+        game.cards.add(this);
         updateLocation(game);
     }
 
@@ -65,30 +65,9 @@ public class Goblin extends Card {
     public Card findClosestEnemy(Game g) {
         Card closest = null;
         int closestdistance = 1000;
-        if (p1 == false) {
-            for (int i = 0; i <= g.p2List.size(); i++) {
-                Card enemy = g.p2List.get(i);
-                if (enemy instanceof Card) {
-                    int distance = FindDistance(enemy);
-                    if (distance <= atkRadius) {
-                        if (distance <= closestdistance) {
-                            closestdistance = distance;
-                            closest = enemy;
-                        }
-                    }
-                } else {
-                    int distance = FindDistance(enemy);
-                    if (distance <= closestdistance) {
-                        closestdistance = distance;
-                        closest = enemy;
-                    }
-                }
-            }
-
-        } else {
-            for (int i = 0; i <= g.p2List.size(); i++) {
-                Card enemy = g.p2List.get(i);
-                if (enemy instanceof Card) {
+            for (int i = 0; i <= g.cards.size(); i++) {
+                Card enemy = g.cards.get(i);
+                    if (enemy instanceof Card) {
                     int distance = FindDistance(enemy);
                     if (distance <= atkRadius) {
                         if (distance <= closestdistance) {
@@ -105,9 +84,6 @@ public class Goblin extends Card {
                 }
 
             }
-
-
-        }
         return closest;
     }
 

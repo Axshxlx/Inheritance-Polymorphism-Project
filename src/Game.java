@@ -3,15 +3,19 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class Game extends PApplet {
-    ArrayList<Card> p1List = new ArrayList<>();
-    ArrayList<Card> p2List = new ArrayList<>();
+    ArrayList<Card> cards = new ArrayList<>();
+    ArrayList<TOWER> towers = new ArrayList<>();
     Goblin test;
 
     public void settings() {
         size(800, 1000);
     }
     public void setup() {
-        test = new Goblin(true, true,200, 200, 75);
+
+        test = new Goblin(true, true,200, 200, 150);
+        for (int i = 0; i < 2; i++) {
+            towers.add(new TOWER(200, 800,false));
+        }
     }
 
     public void draw() {
@@ -24,6 +28,7 @@ public class Game extends PApplet {
         fill(101,67,32);
         rect(350,400, 100,200); // bridge
         test.draw(this);
+        new TOWER(200, 800,false).draw(this);
     }
 
 

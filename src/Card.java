@@ -43,4 +43,19 @@ public class Card {
         return (int)distance;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void deductHealth(int healthDeducted){
+        health -= healthDeducted;
+    }
+
+    public void setDead(Game game){
+        if(health<=0){
+            alive=false;
+        }
+        game.cards.remove(this);
+    }
+
 }

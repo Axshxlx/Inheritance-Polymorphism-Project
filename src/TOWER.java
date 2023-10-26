@@ -13,14 +13,8 @@ public class TOWER {
 
     protected Card name;
 
-    public TOWER(int type,int x_location, int y_location, boolean Player){
-        this.type = type;
-        if (type == 0) {
-            tower_health = 3600;
-        }
-        else{
-            tower_health = 1800;
-        }
+    public TOWER(int x_location, int y_location, boolean Player){
+       tower_health=1800;
         this.x_location = x_location;
         this.y_location = y_location;
         alive = true;
@@ -33,8 +27,8 @@ public class TOWER {
         Card closest = null;
         int closestdistance = 50;
         if (Player){
-            for (int i = 0; i<=g.p1List.size(); i++){
-                Card enemy = g.p1List.get(i);
+            for (int i = 0; i<=g.cards.size(); i++){
+                Card enemy = g.cards.get(i);
                 int distance = FindDistance(enemy);
                 if(distance<=closestdistance){
                     closestdistance = distance;
@@ -44,8 +38,8 @@ public class TOWER {
 
         }
         else{
-            for (int i = 0; i<=g.p2List.size(); i++){
-                Card enemy = g.p2List.get(i);
+            for (int i = 0; i<=g.cards.size(); i++){
+                Card enemy = g.cards.get(i);
                 int distance = FindDistance(enemy);
                 if(distance<=closestdistance){
                     closestdistance = distance;
@@ -88,6 +82,11 @@ public class TOWER {
             attacking = true;
             name = enemy;
         }
+    }
+
+    public void draw(Game game){
+        game.fill(0,0,120);
+        game.rect(x_location,y_location,200,200);
     }
 
 }
