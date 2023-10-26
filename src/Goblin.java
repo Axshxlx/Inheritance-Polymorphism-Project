@@ -29,7 +29,25 @@ public class Goblin extends Card {
         xLocation += speedX;
         yLocation += speedY;
         if(getyLocation()==600) {
-            findClosestEnemy(game);
+
+            if (null == findClosestEnemy(game)) {
+               TOWER opp = findClosestTower(game);
+                int distFromBridgeX = getxLocation() - opp.getxLocation();
+                int distFromBridgeY = getyLocation() - opp.getyLocation();
+                if (distFromBridgeY < 0) speedY = 1;
+                if (distFromBridgeX < 0) speedX = 1;
+                if (distFromBridgeX > 0) speedX = -1;
+                if (distFromBridgeY > 0) speedY = -1;
+            } else{
+                Card closest = findClosestEnemy(game);
+                int distFromBridgeX = getxLocation() - closest.getxLocation();
+                int distFromBridgeY = getyLocation() - closest.getyLocation();
+                if (distFromBridgeY < 0) speedY = 1;
+                if (distFromBridgeX < 0) speedX = 1;
+                if (distFromBridgeX > 0) speedX = -1;
+                if (distFromBridgeY > 0) speedY = -1;
+            }
+
         }
     }
 

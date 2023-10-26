@@ -70,7 +70,7 @@ public class Card {
     public Card findClosestEnemy(Game g) {
         Card closest = null;
         int closestdistance = FindDistance(findClosestTower(g));
-        for (int i = 0; i <= g.cards.size(); i++) {
+        for (int i = 0; i <= g.cards.size()-1; i++) {
             Card enemy = g.cards.get(i);
             if (enemy instanceof Card) {
                 int distance = FindDistance(enemy);
@@ -91,7 +91,7 @@ public class Card {
     public TOWER findClosestTower(Game g){
         TOWER closest = null;
         int closestdistance = 10000;
-        for (int i = 0; i <= g.towers.size(); i++) {
+        for (int i = 0; i <= g.towers.size()-1; i++) {
             TOWER enemy = g.towers.get(i);
             int distance = FindDistance(enemy);
             if (distance <= closestdistance) {
