@@ -14,8 +14,8 @@ public class Game extends PApplet {
     public void setup() {
 
         test = new Goblin(true, true,200, 200, 150);
-        towers.add(new TOWER(200, 800,true));
-        towers.add(new TOWER(200, 0,false));
+        towers.add(new TOWER(200, 800,false));
+        towers.add(new TOWER(200, 0,true));
         t1 = towers.get(0);
         t2 = towers.get(1);
     }
@@ -32,6 +32,7 @@ public class Game extends PApplet {
         test.draw(this);
         t1.draw(this);
         t2.draw(this);
+        test.ifInContact(this);
     }
 
 

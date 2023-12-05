@@ -72,6 +72,7 @@ public class Card {
         int closestdistance = FindDistance(findClosestTower(g));
         for (int i = 0; i <= g.cards.size()-1; i++) {
             Card enemy = g.cards.get(i);
+            if(!this.p1 == enemy.p1){
             if (enemy instanceof Card) {
                 int distance = FindDistance(enemy);
                 if (distance <= atkRadius) {
@@ -81,9 +82,32 @@ public class Card {
                     }
                 }
 
-            }
+            }}
+            else{continue;}
         }
         return closest;
+    }
+
+    public boolean ifInContact(Game g){
+        Card closestEnem  =findClosestEnemy(g);
+        TOWER closestTower = findClosestTower(g);
+        if(closestEnem!=null){
+            if(yLocation == closestEnem.getyLocation() && !closestEnem.p1){
+                this.speedY =0;
+                closestEnem.speedY =0;
+                if(distBetweenCards(this,closestEnem)<atkRadius){
+                    closestEnem.deductHealth(this.strength);
+                }
+            }
+        }if(yLocation == closestTower.getyLocation() && !closestTower.Player){
+            this.speedY =0;
+            System.out.println("tower found by goblin");
+        }
+        return true;
+    }
+
+    public double distBetweenCards(Card one, Card two){
+        return Math.sqrt(Math.pow(one.getyLocation()-two.getyLocation(),2) + Math.pow(one.getxLocation()-two.getxLocation(),2));
     }
 
 
@@ -92,11 +116,13 @@ public class Card {
         int closestdistance = 10000;
         for (int i = 0; i <= g.towers.size()-1; i++) {
             TOWER enemy = g.towers.get(i);
+            if(!this.p1 == enemy.Player){
             int distance = FindDistance(enemy);
             if (distance <= closestdistance) {
                     closestdistance = distance;
                     closest = enemy;
-            }
+            }}
+            else{continue;}
 
         }
         return closest;

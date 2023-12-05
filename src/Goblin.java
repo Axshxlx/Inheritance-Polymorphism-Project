@@ -2,7 +2,7 @@
 
 public class Goblin extends Card {
     private static int elixirPrice = 3;
-    private static int strength = 10;
+    private static int strength = 1;
     private int health = 75;
     private static boolean giant = false;
     private static int atkRadius = 120;
@@ -51,10 +51,27 @@ public class Goblin extends Card {
     }
 
     public boolean ifInContact(Game g){
-        if(yLocation == findClosestEnemy(g).getyLocation() || yLocation == findClosestTower(g).getyLocation()){
-
+        Card closestEnem  =findClosestEnemy(g);
+        TOWER closestTower = findClosestTower(g);
+        if(closestEnem!=null){
+        if(yLocation == closestEnem.getyLocation() && !closestEnem.p1){
+            this.speedY =0;
+            closestEnem.speedY =0;
+            if(distBetweenCards(this,closestEnem)<atkRadius){
+                closestEnem.deductHealth(this.strength);
+            }
         }
+        }if(yLocation == closestTower.getyLocation() && !closestTower.Player){
+        this.speedY =0;
+            System.out.println("tower found by goblin");
+        }
+        return true;
     }
+
+    public double distBetweenCards(Card one, Card two){
+        return Math.sqrt(Math.pow(one.getyLocation()-two.getyLocation(),2) + Math.pow(one.getxLocation()-two.getxLocation(),2));
+    }
+
 
     public void draw(Game game) {
         game.fill(0, 120, 0);
