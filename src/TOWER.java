@@ -22,6 +22,9 @@ public class TOWER {
 
     }
 
+    public int getY_location() {
+        return y_location;
+    }
 
     public Card findClosestEnemy(Game g) {
         Card closest = null;

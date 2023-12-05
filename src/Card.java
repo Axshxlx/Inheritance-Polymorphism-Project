@@ -82,7 +82,6 @@ public class Card {
                 }
 
             }
-
         }
         return closest;
     }
@@ -97,7 +96,6 @@ public class Card {
             if (distance <= closestdistance) {
                     closestdistance = distance;
                     closest = enemy;
-
             }
 
         }

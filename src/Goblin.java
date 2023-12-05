@@ -47,11 +47,14 @@ public class Goblin extends Card {
                 if (distFromBridgeX > 0) speedX = -1;
                 if (distFromBridgeY > 0) speedY = -1;
             }
-
         }
     }
 
+    public boolean ifInContact(Game g){
+        if(yLocation == findClosestEnemy(g).getyLocation() || yLocation == findClosestTower(g).getyLocation()){
 
+        }
+    }
 
     public void draw(Game game) {
         game.fill(0, 120, 0);
