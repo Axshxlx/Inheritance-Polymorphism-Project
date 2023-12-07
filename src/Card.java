@@ -79,7 +79,7 @@ public class Card {
                 if (distance <= atkRadius) {
                     if (distance <= closestdistance) {
                         closestdistance = distance;
-                        closest = enemy;
+                        closest =   enemy;
                     }
                 }
 
