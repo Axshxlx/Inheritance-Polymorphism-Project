@@ -14,6 +14,7 @@ public class Card {
     protected int xLocation;
     protected int yLocation;
     protected boolean p1;
+    private static int radius=25;
 
     public Card(int elixirPrice, int strength, int health, int speedX, int speedY, int atkRadius, boolean giant, boolean alive, boolean p1, int xLocation, int yLocation) {
         this.elixirPrice = elixirPrice;
@@ -72,7 +73,7 @@ public class Card {
         int closestdistance = FindDistance(findClosestTower(g));
         for (int i = 0; i <= g.cards.size()-1; i++) {
             Card enemy = g.cards.get(i);
-            if(!this.p1 == enemy.p1){
+            if(this.p1 != enemy.p1){
             if (enemy instanceof Card) {
                 int distance = FindDistance(enemy);
                 if (distance <= atkRadius) {
@@ -89,18 +90,18 @@ public class Card {
     }
 
     public boolean ifInContact(Game g){
-        Card closestEnem  =findClosestEnemy(g);
+        Card closestEnem =findClosestEnemy(g);
         TOWER closestTower = findClosestTower(g);
-        if(closestEnem!=null){
-            if(yLocation == closestEnem.getyLocation() && !closestEnem.p1){
+        if(closestEnem!=null && closestEnem.p1 != this.p1){
+            if( && !closestEnem.p1)){   // findDistance - closestEnem.getRadius() - findDistance(
                 this.speedY =0;
                 closestEnem.speedY =0;
                 if(distBetweenCards(this,closestEnem)<atkRadius){
                     closestEnem.deductHealth(this.strength);
                 }
             }
-        }if(yLocation == closestTower.getyLocation() && !closestTower.Player){
-            this.speedY =0;
+        }if((FindDistance(closestTower)- (this.atkRadius + closestTower.radius)>0 && !closestTower.Player){
+            this.speedY=0;
             System.out.println("tower found by goblin");
         }
         return true;
@@ -117,7 +118,7 @@ public class Card {
         int closestdistance = 10000;
         for (int i = 0; i <= g.towers.size()-1; i++) {
             TOWER enemy = g.towers.get(i);
-            if(!this.p1 == enemy.Player){
+            if(this.p1 != enemy.Player){
             int distance = FindDistance(enemy);
             if (distance <= closestdistance) {
                     closestdistance = distance;

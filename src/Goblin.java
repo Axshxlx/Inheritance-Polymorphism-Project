@@ -10,7 +10,7 @@ public class Goblin extends Card {
     private boolean alive;
     private boolean p1;
     private static int initialX, initialY;
-    private static int sightRadius = 400;
+    private static int radius=25;
 
     public Goblin(boolean alive, boolean p1, int xLocation, int yLocation, int health) {
         super(elixirPrice, strength, health, speedX, speedY, atkRadius, giant, alive, p1, xLocation, yLocation);
@@ -50,12 +50,18 @@ public class Goblin extends Card {
         }
     }
 
+    public static int getRadius() {
+        return radius;
+    }
+
     public void draw(Game game) {
         game.fill(0, 120, 0);
-        game.ellipse(getxLocation(), getyLocation(), 25, 25);
+        game.ellipse(getxLocation(), getyLocation(), radius, radius);
         game.cards.add(this);
         updateLocation(game);
     }
+
+
 
 
 

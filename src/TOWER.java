@@ -6,7 +6,7 @@ public class TOWER {
     protected boolean alive;
     protected int type;
     protected boolean Player;
-
+    protected int radius = 100;
     protected int attackRadius;
 
     protected boolean attacking;
@@ -43,7 +43,7 @@ public class TOWER {
         Card closest = null;
         int closestdistance = 50;
         if (Player){
-            for (int i = 0; i<=g.cards.size(); i++){
+            for (int i = 0; i<g.cards.size(); i++){
                 Card enemy = g.cards.get(i);
                 int distance = FindDistance(enemy);
                 if(enemy.p1){
@@ -108,10 +108,10 @@ public class TOWER {
     }
 
     public int getyLocation() {
-        return y_location;
+        return y_location-(width/2);
     }
     public int getxLocation(){
-        return x_location;
+        return x_location-(length/2);
     }
     public void deductHealth(int healthDeducted){
           tower_health -= healthDeducted;
