@@ -106,6 +106,7 @@ public class Card {
         return true;
     }
 
+
     public double distBetweenCards(Card one, Card two){
         return Math.sqrt(Math.pow(one.getyLocation()-two.getyLocation(),2) + Math.pow(one.getxLocation()-two.getxLocation(),2));
     }
@@ -127,4 +128,10 @@ public class Card {
         }
         return closest;
     }
+
+    public static int getRadius() {
+        return radius;
+    }
+
+    //public void doDamage
 }

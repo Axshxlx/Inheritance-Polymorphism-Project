@@ -8,6 +8,8 @@ public class Game extends PApplet {
     Goblin test;
     TOWER t1,t2;
 
+    int frame_count = 0;
+
     public void settings() {
         size(800, 1000);
     }
@@ -21,6 +23,7 @@ public class Game extends PApplet {
     }
 
     public void draw() {
+        frame_count++;//increment the frame counter for every frame
         background(255);
         fill(0,0,180);
         rect(0,450,800, 100); //river
@@ -33,7 +36,9 @@ public class Game extends PApplet {
         t1.draw(this);
         t2.draw(this);
         test.ifInContact(this);
+
     }
+
 
 
 

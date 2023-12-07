@@ -13,6 +13,19 @@ public class TOWER {
 
     protected Card name;
 
+
+
+    protected int width = 200;
+
+    protected int length = 200;
+
+
+    // hit_locations are for where teh enemies will try to attack from
+    protected int att1; //
+    protected int att2;
+    protected int att3;
+
+
     public TOWER(int x_location, int y_location, boolean Player){
        tower_health=1800;
         this.x_location = x_location;
@@ -33,10 +46,11 @@ public class TOWER {
             for (int i = 0; i<=g.cards.size(); i++){
                 Card enemy = g.cards.get(i);
                 int distance = FindDistance(enemy);
+                if(enemy.p1){
                 if(distance<=closestdistance){
                     closestdistance = distance;
                     closest = enemy;
-                }
+                }}
             }
 
         }
@@ -44,10 +58,11 @@ public class TOWER {
             for (int i = 0; i<=g.cards.size(); i++){
                 Card enemy = g.cards.get(i);
                 int distance = FindDistance(enemy);
+               if(!enemy.p1){
                 if(distance<=closestdistance){
                     closestdistance = distance;
                     closest = enemy;
-                }
+                }}
             }
 
         }
@@ -71,7 +86,7 @@ public class TOWER {
 
 
     public void Attack(Game g){
-        if(attacking = false){
+        if(attacking == false){
             Card closest = findClosestEnemy(g);
             damage(closest);
         }
@@ -89,7 +104,7 @@ public class TOWER {
 
     public void draw(Game game){
         game.fill(0,0,120);
-        game.rect(x_location,y_location,200,200);
+        game.rect(x_location,y_location,length,width);
     }
 
     public int getyLocation() {
@@ -98,5 +113,10 @@ public class TOWER {
     public int getxLocation(){
         return x_location;
     }
+    public void deductHealth(int healthDeducted){
+          tower_health -= healthDeducted;
+    }
+
+
 }
 
