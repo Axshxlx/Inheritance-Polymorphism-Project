@@ -35,6 +35,7 @@ public class Card {
     public int getxLocation(){
         return xLocation;
     }
+
     public int FindDistance(Card c) {
         int enemyY = c.getyLocation();
         int enemyX = c.getxLocation();
@@ -44,14 +45,6 @@ public class Card {
         return (int)distance;
     }
 
-    public int FindDistance(TOWER t) {
-        int enemyY = t.getyLocation();
-        int enemyX = t.getxLocation();
-        int differenceSquaredX = (enemyX - this.xLocation) * (enemyX - this.xLocation);
-        int differenceSquaredY = (enemyY - this.yLocation) * (enemyY - this.yLocation);
-        double distance = Math.sqrt((double)(differenceSquaredX + differenceSquaredY));
-        return (int)distance;
-    }
     public int getHealth() {
         return health;
     }

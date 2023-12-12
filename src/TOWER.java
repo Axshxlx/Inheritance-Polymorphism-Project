@@ -26,12 +26,7 @@ public class TOWER extends Card {
 
 
     public TOWER(int x_location, int y_location, boolean Player){
-       tower_health=1800;
-        this.x_location = x_location;
-        this.y_location = y_location;
-        alive = true;
-        this.Player = Player;
-
+        super(0,10,1800,0,0,400,false,true,Player,x_location,y_location);
     }
 
     public int getY_location() {

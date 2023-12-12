@@ -19,10 +19,13 @@ public class Game extends PApplet {
     public void setup() {
 
         test = new Goblin(true, true, 200, 200, 150);
-        towers.add(new TOWER(200, 800, false));
+        towers.add(new TOWER(200, 650, false));
         towers.add(new TOWER(200, 0, true));
         t1 = towers.get(0);
         t2 = towers.get(1);
+        cards.add(test);
+
+
     }
 
     public void draw() {
@@ -48,13 +51,16 @@ public class Game extends PApplet {
         }
         test.draw(this);
         test.ifInContact(this);
+        textSize(128);
+        text(str((int)elixerP1),200,100);
 
     }
+    public void keyReleased(){
+        if(key== 'g'){
+            cards.add(new Goblin(true, true, mouseX-20, mouseY-20, 150));
 
-
-
-
-
+        }
+    }
     public static void main(String[] args) {
         PApplet.main("Game");
     }

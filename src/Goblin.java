@@ -20,8 +20,8 @@ public class Goblin extends Card {
         if(distFromBridgeX < 0 ) speedX=1;
         if(distFromBridgeX > 0 ) speedX=-1;
         if(distFromBridgeY > 0 ) speedY=-1;
-        initialX = getxLocation();
-        initialY = getyLocation();
+            initialX = getxLocation();
+            initialY = getyLocation();
     }
 
     public void updateLocation(Game game) { // (bridge coords --> (350,400,100,200)
