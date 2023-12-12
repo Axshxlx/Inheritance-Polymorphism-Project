@@ -8,6 +8,9 @@ public class Game extends PApplet {
     Goblin test;
     TOWER t1,t2;
 
+    double elixerP1;
+    double elixerP2;
+
     int frame_count = 0;
 
     public void settings() {
@@ -24,17 +27,26 @@ public class Game extends PApplet {
 
     public void draw() {
         frame_count++;//increment the frame counter for every frame
+        if(elixerP1< 10){
+        elixerP1 += .008333;}
+        else{elixerP1=10;}
+        if(elixerP2< 10){
+            elixerP2 += .008333;}
+        else{elixerP2=10;}
         background(255);
         fill(0,0,180);
         rect(0,450,800, 100); //river
         fill(0,180,0);
         rect(0,0,800, 450);
         rect(0,550,800, 450);
+        rect(mouseX-20,mouseY-20,40,40);
+
         fill(101,67,32);
         rect(350,400, 100,200); // bridge
+        for (Card card:cards) {
+//            card.draw(this);
+        }
         test.draw(this);
-        t1.draw(this);
-        t2.draw(this);
         test.ifInContact(this);
 
     }

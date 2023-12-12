@@ -70,42 +70,41 @@ public class Card {
 
     public Card findClosestEnemy(Game g) {
         Card closest = null;
-        int closestdistance = FindDistance(findClosestTower(g));
-        for (int i = 0; i <= g.cards.size()-1; i++) {
+        int closestdistance = 10000;
+
+        for (int i = 0; i < g.cards.size(); i++) {
             Card enemy = g.cards.get(i);
             if(this.p1 != enemy.p1){
-            if (enemy instanceof Card) {
+
                 int distance = FindDistance(enemy);
-                if (distance <= atkRadius) {
+
                     if (distance <= closestdistance) {
                         closestdistance = distance;
                         closest =   enemy;
-                    }
+
+
                 }
 
             }}
-            else{continue;}
-        }
         return closest;
-    }
+        }
+
 
     public boolean ifInContact(Game g){
         Card closestEnem =findClosestEnemy(g);
-        TOWER closestTower = findClosestTower(g);
         if(closestEnem!=null && closestEnem.p1 != this.p1){
-            if( && !closestEnem.p1)){   // findDistance - closestEnem.getRadius() - findDistance(
+            double distance = distBetweenCards(this,closestEnem);
+            if(distance > (this.atkRadius + closestEnem.radius)){
                 this.speedY =0;
-                closestEnem.speedY =0;
-                if(distBetweenCards(this,closestEnem)<atkRadius){
+                this.speedX = 0;
+
                     closestEnem.deductHealth(this.strength);
-                }
+
             }
-        }if((FindDistance(closestTower)- (this.atkRadius + closestTower.radius)>0 && !closestTower.Player){
-            this.speedY=0;
-            System.out.println("tower found by goblin");
         }
         return true;
     }
+
 
 
     public double distBetweenCards(Card one, Card two){
@@ -113,26 +112,15 @@ public class Card {
     }
 
 
-    public TOWER findClosestTower(Game g){
-        TOWER closest = null;
-        int closestdistance = 10000;
-        for (int i = 0; i <= g.towers.size()-1; i++) {
-            TOWER enemy = g.towers.get(i);
-            if(this.p1 != enemy.Player){
-            int distance = FindDistance(enemy);
-            if (distance <= closestdistance) {
-                    closestdistance = distance;
-                    closest = enemy;
-            }}
-            else{continue;}
 
-        }
-        return closest;
-    }
 
     public static int getRadius() {
         return radius;
     }
 
-    //public void doDamage
+    public void draw(Game game) {
+        game.fill(0, 120, 0);
+        game.ellipse(getxLocation(), getyLocation(), radius, radius);
+        game.cards.add(this);
+    }
 }

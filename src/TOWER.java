@@ -1,13 +1,12 @@
 
-public class TOWER {
-    protected int tower_health;
+public class TOWER extends Card {
     protected int x_location;
     protected int y_location;
     protected boolean alive;
     protected int type;
     protected boolean Player;
     protected int radius = 100;
-    protected int attackRadius;
+    protected int attackRadius=400;
 
     protected boolean attacking;
 
@@ -114,7 +113,7 @@ public class TOWER {
         return x_location-(length/2);
     }
     public void deductHealth(int healthDeducted){
-          tower_health -= healthDeducted;
+          health -= healthDeducted;
     }
 
 
