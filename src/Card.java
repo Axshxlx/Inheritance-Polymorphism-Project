@@ -7,16 +7,16 @@ public class Card {
     protected int elixirPrice;
     protected int strength;
     protected int health;
-    protected int speedX, speedY;
+    protected double speedX, speedY;
     protected int atkRadius;
     protected boolean giant;
     protected boolean alive;
-    protected int xLocation;
-    protected int yLocation;
+    protected double xLocation;
+    protected double yLocation;
     protected boolean p1;
     private static int radius=25;
 
-    public Card(int elixirPrice, int strength, int health, int speedX, int speedY, int atkRadius, boolean giant, boolean alive, boolean p1, int xLocation, int yLocation) {
+    public Card(int elixirPrice, int strength, int health, int atkRadius, boolean giant, boolean alive, boolean p1, int xLocation, int yLocation) {
         this.elixirPrice = elixirPrice;
         this.strength = strength;
         this.p1=p1;
@@ -35,29 +35,26 @@ public class Card {
     public int getxLocation(){
         return xLocation;
     }
-
-    public int FindDistance(Card c) {
-        int enemyY = c.getyLocation();
-        int enemyX = c.getxLocation();
-        int differenceSquaredX = (enemyX - this.xLocation) * (enemyX - this.xLocation);
-        int differenceSquaredY = (enemyY - this.yLocation) * (enemyY - this.yLocation);
-        double distance = Math.sqrt((double)(differenceSquaredX + differenceSquaredY));
-        return (int)distance;
-    }
-
     public int getHealth() {
         return health;
     }
-
     public void deductHealth(int healthDeducted){
         health -= healthDeducted;
     }
-
+    public int FindDistance(Card c) {
+        double enemyY = c.getyLocation();
+        double enemyX = c.getxLocation();
+        double differenceSquaredX = (enemyX - this.xLocation) * (enemyX - this.xLocation);
+        double differenceSquaredY = (enemyY - this.yLocation) * (enemyY - this.yLocation);
+        double distance = Math.sqrt((double) (differenceSquaredX + differenceSquaredY));
+        return (int) distance;
+    }
     public void setDead(Game game){
         if(health<=0){
             alive=false;
+            game.cards.remove(this);
+            System.out.println(getHealth()+ " yay I died");
         }
-        game.cards.remove(this);
     }
 
 
@@ -68,14 +65,10 @@ public class Card {
         for (int i = 0; i < g.cards.size(); i++) {
             Card enemy = g.cards.get(i);
             if(this.p1 != enemy.p1){
-
                 int distance = FindDistance(enemy);
-
                     if (distance <= closestdistance) {
                         closestdistance = distance;
                         closest =   enemy;
-
-
                 }
 
             }}
@@ -90,7 +83,6 @@ public class Card {
             if(distance > (this.atkRadius + closestEnem.radius)){
                 this.speedY =0;
                 this.speedX = 0;
-
                     closestEnem.deductHealth(this.strength);
 
             }
@@ -100,20 +92,44 @@ public class Card {
 
 
 
+
+
     public double distBetweenCards(Card one, Card two){
         return Math.sqrt(Math.pow(one.getyLocation()-two.getyLocation(),2) + Math.pow(one.getxLocation()-two.getxLocation(),2));
     }
-
-
-
 
     public static int getRadius() {
         return radius;
     }
 
     public void draw(Game game) {
-        game.fill(0, 120, 0);
-        game.ellipse(getxLocation(), getyLocation(), radius, radius);
-        game.cards.add(this);
+        if(alive && game.elixirP1 < elixirPrice){
+            if (this instanceof Goblin) {
+                    game.ellipse((int)getxLocation(), (int)getyLocation(), radius, radius);
+                    ((Goblin) this).updateLocation(game);
+                }
+            }
+        }
+    public void damage(Card enemy) {
+        enemy.deductHealth(strength/30);
+    }
+
+    public void Attack(Game g) {
+        Card closest = findClosestEnemy(g);
+        if(closest!=null){
+            if(FindDistance(closest)<=atkRadius){
+            if (!attacking) {
+                damage(closest);
+                name = closest;
+                attacking= true;
+            } else {
+                damage(name);
+                if(!name.alive){
+                    attacking=false;
+                }
+            }
+        }}
+
     }
 }
+

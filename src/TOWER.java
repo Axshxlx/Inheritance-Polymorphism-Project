@@ -5,28 +5,20 @@ public class TOWER extends Card {
     protected boolean alive;
     protected int type;
     protected boolean Player;
-    protected int radius = 100;
-    protected int attackRadius=400;
 
+    protected int attackRadius = 400;
     protected boolean attacking;
-
     protected Card name;
-
-
-
     protected int width = 200;
 
     protected int length = 200;
 
 
-    // hit_locations are for where teh enemies will try to attack from
-    protected int att1; //
-    protected int att2;
-    protected int att3;
 
-
-    public TOWER(int x_location, int y_location, boolean Player){
-        super(0,10,1800,0,0,400,false,true,Player,x_location,y_location);
+    public TOWER(int x_location, int y_location, boolean Player) {
+        super(0, 30, 1800, 0, false, true, Player, x_location, y_location);
+        this.x_location = x_location;
+        this.y_location = y_location;
     }
 
     public int getY_location() {
@@ -79,9 +71,14 @@ public class TOWER extends Card {
     }
 
 
-    public void Attack(Game g){
-        if(attacking == false){
-            Card closest = findClosestEnemy(g);
+    public void draw(Game game){
+        game.fill(0,0,120);
+        game.rect((int)getxLocation(),(int)getyLocation(),200,200);
+    }
+    public void Attack(Game g) {
+        Card closest = findClosestEnemy(g);
+        if(closest!=null && Player==p1){
+        if (!attacking) {
             damage(closest);
         }
         else{
@@ -106,9 +103,6 @@ public class TOWER extends Card {
     }
     public int getxLocation(){
         return x_location-(length/2);
-    }
-    public void deductHealth(int healthDeducted){
-          health -= healthDeducted;
     }
 
 
