@@ -1,9 +1,8 @@
 
 public class TOWER extends Card {
-    protected int x_location;
-    protected int y_location;
-    protected boolean alive;
-    protected int type;
+    protected double x_location;
+    protected double y_location;
+
     protected boolean Player;
 
     protected int attackRadius = 400;
@@ -21,56 +20,53 @@ public class TOWER extends Card {
         this.y_location = y_location;
     }
 
-    public int getY_location() {
-        return y_location;
-    }
+
 
     public Card findClosestEnemy(Game g) {
         Card closest = null;
-        int closestdistance = 50;
-        if (Player){
-            for (int i = 0; i<g.cards.size(); i++){
+        int closestdistance = Integer.MAX_VALUE;
+        if(!g.cards.isEmpty()){
+            for (int i = 0; i < g.cards.size(); i++) {
                 Card enemy = g.cards.get(i);
                 int distance = FindDistance(enemy);
-                if(enemy.p1){
-                if(distance<=closestdistance){
-                    closestdistance = distance;
-                    closest = enemy;
-                }}
+                if (Player != enemy.p1) {
+                    if (distance <= closestdistance) {
+                        closestdistance = distance;
+                        closest = enemy;
+                    }
+                }
             }
-
         }
-        else{
-            for (int i = 0; i<=g.cards.size(); i++){
-                Card enemy = g.cards.get(i);
+        if(closest==null){
+            for (int i = 0; i <g.towers.size() ; i++) {
+                Card enemy = g.towers.get(i);
                 int distance = FindDistance(enemy);
-               if(!enemy.p1){
-                if(distance<=closestdistance){
-                    closestdistance = distance;
-                    closest = enemy;
-                }}
+                if (Player != enemy.p1) {
+                    if (distance <= closestdistance) {
+                        closestdistance = distance;
+                        closest = enemy;
+                    }
+                }
             }
-
         }
-        if(closestdistance<=attackRadius) {
+        if (closestdistance <= attackRadius) {
             return closest;
-        }
-        else{
+        } else {
             return null;
         }
     }
 
-    public int FindDistance(Card c){
-        int enemyY = c.getyLocation();
-        int enemyX = c.getxLocation();
-        int differenceSquaredX = (enemyX-this.x_location)*(enemyX-this.x_location);
-        int differenceSquaredY = (enemyY-this.y_location)*(enemyY-this.y_location);
-        double distance = Math.sqrt(differenceSquaredX+differenceSquaredY);
-        return (int)distance;
-
+    public int FindDistance(Card c) {
+        if(c != null){
+            double enemyY = c.getyLocation();
+            double enemyX = c.getxLocation();
+            double differenceSquaredX = (enemyX - this.x_location) * (enemyX - this.x_location);
+            double differenceSquaredY = (enemyY - this.y_location) * (enemyY - this.y_location);
+            double distance = Math.sqrt(differenceSquaredX + differenceSquaredY);
+            return (int) distance;
+        }
+        return 0;
     }
-
-
     public void draw(Game game){
         game.fill(0,0,120);
         game.rect((int)getxLocation(),(int)getyLocation(),200,200);
@@ -80,29 +76,29 @@ public class TOWER extends Card {
         if(closest!=null && Player==p1){
         if (!attacking) {
             damage(closest);
-        }
-        else{
+            name = closest;
+            attacking= true;
+        } else {
+            System.out.println("attacking opp");
             damage(name);
+            if(!name.alive){
+                attacking=false;
+            }
         }
-    }
-    public void damage(Card enemy){
-        if(enemy!=null) {
-            enemy.health -= 100;
-            attacking = true;
-            name = enemy;
         }
-    }
 
-    public void draw(Game game){
-        game.fill(0,0,120);
-        game.rect(x_location,y_location,length,width);
     }
-
-    public int getyLocation() {
-        return y_location-(width/2);
+    public void deductHealth(double healthDeducted){
+        health -= healthDeducted;
     }
-    public int getxLocation(){
-        return x_location-(length/2);
+    public void damage(Card enemy) {
+        enemy.deductHealth(strength/30);
+    }
+    public double getyLocation() {
+        return y_location-((double) width /2);
+    }
+    public double getxLocation(){
+        return x_location-((double) length /2);
     }
 
 

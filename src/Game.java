@@ -29,7 +29,7 @@ public class Game extends PApplet {
             elixirP2 += .008333;}
         else{elixirP2=10;}
         background(0,180,0);
-//        rect(mouseX-20,mouseY-20,40,40);
+
         fill(0,0,0);
         textSize(128);
         text(str((int)elixirP1),100,100);
@@ -74,5 +74,3 @@ public class Game extends PApplet {
         PApplet.main("Game");
     }
 }
-
-// need

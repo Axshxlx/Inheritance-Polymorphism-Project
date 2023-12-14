@@ -18,7 +18,7 @@ public class Goblin extends Card {
         if(this.p1){
             if (xLocation < 400) speedX = -1;
             else speedX = 1;
-            if (yLocation > 500) speedY = 1;
+               if (yLocation > 500) speedY = 1;
             else speedY = -1;
         } else {
             if (xLocation < 400) speedX = 1;
@@ -29,36 +29,55 @@ public class Goblin extends Card {
     }
 
     public void updateLocation(Game game) {
-
-        Card closestEnem = findClosestEnemy(game);
-        if(closestEnem.alive) {
-            if (closestEnem == null) closestEnem = findClosestTower(game);
-            System.out.println("the closest enemy is : " + closestEnem);
-            if (closestEnem instanceof TOWER) {
-                if (xLocation == closestEnem.xLocation && !this.p1) speedX = 0; // + 50
-                if (yLocation == closestEnem.yLocation && !this.p1) speedY = 0; //+100
-                if (xLocation == closestEnem.xLocation && this.p1) speedX = 0;
-            }
+        if(xLocation<0 || xLocation>800 || yLocation<0 || yLocation>1000 ){
+            alive=false;
         }
-        xLocation += speedX;
-        yLocation += speedY;
-    }
-    public static int getRadius() {
-        return radius;
+        Card closestEnem = findClosestEnemy(game);
+            System.out.println("the closest enemy is : " + closestEnem);
+            if(closestEnem instanceof Card){
+              closestEnem.speedY=0;
+              closestEnem.speedX=0;
+              speedX=0;
+              speedY=0;
+                double diffX = closestEnem.xLocation-xLocation;
+                double diffY = closestEnem.yLocation-yLocation;
+                speedX=diffX/120;
+                speedY=diffY/120;
+                if(xLocation-radius!=closestEnem.xLocation+25){
+                    xLocation+=speedX;
+                    yLocation+=speedY;
+                    Attack(game);
+                }
+            }
+            if (closestEnem instanceof TOWER) {
+                double diffX = closestEnem.xLocation-xLocation;
+                double diffY = closestEnem.yLocation-yLocation;
+                speedX=diffX/120;
+                speedY=diffY/120;
+            }
+           xLocation += speedX;
+           yLocation += speedY;
+
     }
 
-    public void draw(Game game) { // THERE'S A PROBLEM WITH FILLING, YOULL SEE BOTH GOBS AS RED REGARDLESS OF PLAYER variable value
+
+
+    public void draw(Game game) {
+        game.fill(0, 120, 0);
         if(this.p1) {
-            game.fill(0, 120, 0);
+
             game.ellipse((int)(getxLocation()), (int)getyLocation(), radius, radius);
             updateLocation(game);
         }
         else {
-            game.fill(120,0,0);
             game.ellipse((int)getxLocation(),(int)getyLocation(),radius,radius);
             updateLocation(game);
         }
 
+    }
+
+    public static int getRadius() {
+        return radius;
     }
 
 

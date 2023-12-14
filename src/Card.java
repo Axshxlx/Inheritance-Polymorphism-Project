@@ -5,40 +5,39 @@ import java.util.List;
 
 public class Card {
     protected int elixirPrice;
-    protected int strength;
+    protected double strength;
     protected int health;
     protected double speedX, speedY;
     protected int atkRadius;
-    protected boolean giant;
     protected boolean alive;
     protected double xLocation;
     protected double yLocation;
     protected boolean p1;
     private static int radius=25;
-
-    public Card(int elixirPrice, int strength, int health, int atkRadius, boolean giant, boolean alive, boolean p1, int xLocation, int yLocation) {
+    protected boolean attacking;
+    protected Card name;
+    public Card(int elixirPrice, double strength, int health, int atkRadius, boolean giant, boolean alive, boolean p1, int xLocation, int yLocation) {
         this.elixirPrice = elixirPrice;
         this.strength = strength;
         this.p1=p1;
         this.speedX = speedX;
         this.speedY = speedY;
         this.atkRadius = atkRadius;
-        this.giant = giant;
         alive = true;
         this.health =health;
         this.xLocation = xLocation;
         this.yLocation = yLocation;
     }
-    public int getyLocation() {
+    public double getyLocation() {
         return yLocation;
     }
-    public int getxLocation(){
+    public double getxLocation(){
         return xLocation;
     }
     public int getHealth() {
         return health;
     }
-    public void deductHealth(int healthDeducted){
+    public void deductHealth(double healthDeducted){
         health -= healthDeducted;
     }
     public int FindDistance(Card c) {
@@ -60,21 +59,37 @@ public class Card {
 
     public Card findClosestEnemy(Game g) {
         Card closest = null;
-        int closestdistance = 10000;
-
-        for (int i = 0; i < g.cards.size(); i++) {
-            Card enemy = g.cards.get(i);
-            if(this.p1 != enemy.p1){
+        int closestdistance = 500;
+        if(!g.cards.isEmpty()){
+            for (int i = 0; i < g.cards.size(); i++) {
+                Card enemy = g.cards.get(i);
                 int distance = FindDistance(enemy);
+                if (p1 != enemy.p1) {
                     if (distance <= closestdistance) {
                         closestdistance = distance;
-                        closest =   enemy;
+                        closest = enemy;
+                    }
                 }
-
-            }}
-        return closest;
+            }
         }
-
+        if(closest==null){
+            for (int i = 0; i <g.towers.size() ; i++) {
+                Card enemy = g.towers.get(i);
+                int distance = FindDistance(enemy);
+                if (p1 != enemy.p1) {
+                    if (distance < closestdistance) {
+                        closestdistance = distance;
+                        closest = enemy;
+                    }
+                }
+            }
+        }
+        if (closestdistance <= atkRadius) {
+            return closest;
+        } else {
+            return null;
+        }
+    }
 
     public boolean ifInContact(Game g){
         Card closestEnem =findClosestEnemy(g);
